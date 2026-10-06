@@ -1,13 +1,16 @@
 {
   "name": "madai-backend",
   "version": "1.0.0",
-  "description": "MADAI AI backend",
+  "description": "MADAI backend API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate deploy"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "dependencies": {
     "@prisma/client": "^5.16.1",
@@ -16,17 +19,14 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
-    "express-rate-limit": "^7.5.0",
-    "helmet": "^8.1.0",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "openai": "^4.55.0",
-    "ws": "^8.13.0"
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "prisma": "^5.16.1"
-  },
-  "engines": {
-    "node": ">=20"
   }
 }
