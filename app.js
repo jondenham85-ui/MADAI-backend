@@ -52,7 +52,7 @@ app.use(
 app.get("/", (req, res) => {
   res.status(200).json({
     status: "online",
-    service: "MADAI API",
+    service: "MADAI API"
   });
 });
 
@@ -61,14 +61,18 @@ app.get("/api/health", (req, res) => {
     status: "online",
     service: "MADAI API",
     version: "1.0.0",
-    timestamp: new Date().toISOString(),
+    timestamp: new Date().toISOString()
   });
 });
 
-// Temporarily disabled because the routes directory is missing.
-// Restore these after the route files have been added.
-//
-// app.use("/api/auth", require("./routes/auth"));
+/*
+ * AUTH ENABLED
+ */
+app.use("/api/auth", require("./routes/auth"));
+
+/*
+ * REMAINING ROUTES DISABLED
+ */
 // app.use("/api/ai", require("./routes/ai"));
 // app.use("/api/tasks", require("./routes/tasks"));
 // app.use("/api/projects", require("./routes/projects"));
@@ -78,10 +82,11 @@ app.get("/api/health", (req, res) => {
 
 app.use((req, res) => {
   res.status(404).json({
-    error: "Route not found",
+    error: "Route not found"
   });
 });
 
 app.use(errorHandler);
 
 module.exports = app;
+
