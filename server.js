@@ -1,1 +1,35 @@
-require("dotenv").config();const app=require("./app"),connectDB=require("./config/db"),port=process.env.PORT||10000;(async()=>{try{if(!process.env.JWT_SECRET||process.env.JWT_SECRET.length<32)throw new Error("JWT_SECRET must be at least 32 characters");await connectDB();app.listen(port,"0.0.0.0",()=>console.log(`MADAI API listening on ${port}`))}catch(e){console.error("Startup failed:",e.message);process.exit(1)}})();
+require("dotenv").config();
+
+const http = require("http");
+const app = require("./app");
+
+const PORT = process.env.PORT || 10000;
+
+const server = http.createServer(app);
+
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`MADAI backend running on port ${PORT}`);
+  console.log(`Health check: http://localhost:${PORT}/api/health`);
+});
+
+server.on("error", (error) => {
+  console.error("MADAI server error:", error);
+});
+
+process.on("SIGTERM", () => {
+  console.log("SIGTERM received. Shutting down MADAI server...");
+
+  server.close(() => {
+    console.log("MADAI server stopped.");
+    process.exit(0);
+  });
+});
+
+process.on("SIGINT", () => {
+  console.log("SIGINT received. Shutting down MADAI server...");
+
+  server.close(() => {
+    console.log("MADAI server stopped.");
+    process.exit(0);
+  });
+});
