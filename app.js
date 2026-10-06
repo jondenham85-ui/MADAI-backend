@@ -49,8 +49,15 @@ app.use(
   globalLimiter
 );
 
+app.get("/", (req, res) => {
+  res.status(200).json({
+    status: "online",
+    service: "MADAI API",
+  });
+});
+
 app.get("/api/health", (req, res) => {
-  res.json({
+  res.status(200).json({
     status: "online",
     service: "MADAI API",
     version: "1.0.0",
@@ -58,12 +65,16 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-app.use("/api/auth", require("./routes/auth"));
-app.use("/api/ai", require("./routes/ai"));
-app.use("/api/tasks", require("./routes/tasks"));
-app.use("/api/projects", require("./routes/projects"));
-app.use("/api/billing", require("./routes/billing"));
-app.use("/api/founder", require("./routes/founder"));
+// Temporarily disabled because the routes directory is missing.
+// Restore these after the route files have been added.
+//
+// app.use("/api/auth", require("./routes/auth"));
+// app.use("/api/ai", require("./routes/ai"));
+// app.use("/api/tasks", require("./routes/tasks"));
+// app.use("/api/projects", require("./routes/projects"));
+// app.use("/api/billing", require("./routes/billing"));
+// app.use("/api/founder", require("./routes/founder"));
+// app.use("/api/org", require("./routes/org"));
 
 app.use((req, res) => {
   res.status(404).json({
